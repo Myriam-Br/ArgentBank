@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,8 @@ function Form() {
 
     //validate input
     function validator(value, input) { 
-      const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    // eslint-disable-next-line
+    const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
         switch(input){
             case 'email':
             dispatch(checkInput({email: validateEmail(value, regexEmail.test(value)), password:password}))

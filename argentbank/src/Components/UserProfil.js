@@ -18,7 +18,7 @@ function UserProfil() {
       return dispatch(getUserName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id, status:  res.data.status, message : res.data.message }))
     }
     fetchData()
-  },[])
+  },[dispatch, token])
 
   //firstname and lastname to display
   const userLastName = useSelector(state => state.user.value.lastName)
