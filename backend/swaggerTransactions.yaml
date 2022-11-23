@@ -1,0 +1,249 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: api.example.com
+basePath: /api/v1
+schemes:
+  - https
+paths:
+  /transactions/{userId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Transactions
+      summary: Returns a list of transactions.
+      description: Fetch List Of All Monthly  Transactions.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: userId
+          description: User ID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Transactions list fetched successully
+        400:
+          description: Couldn't fetch data 
+        401:
+          description: Authorization information is missing or invalid.
+        500:
+          description: Internal Server Error
+  /transactions/{userId}/transaction{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Transaction
+      summary: Gets a transaction by ID.
+      description: Get user transaction that matches the id
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: userId
+          description: User ID
+          required: true
+          type: integer
+        - in: path
+          name: id
+          description: Transaction ID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Transaction Fetched Successfully
+          schema:
+            $ref: '#/definitions/Transaction'  
+        400:
+          description: Bad request. Transaction ID must be an integer and bigger than 0.
+        401:
+          description: Authorization information is missing or invalid.
+        500:
+          description: Internal Server Error
+  /transactions/{userId}/newTransaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Transaction
+      summary: Create A New Transaction
+      description: Add a new transaction to the list
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: userId
+          description: User ID
+          required: true
+          type: integer
+        - in: body
+          name: body
+          description: Transaction Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Transaction Created Successfully
+        400:
+          description: Invalid Fields
+        401:
+          description: Authorization information is missing or invalid.
+        500:
+          description: Internal Server Error
+  /transactions/{userId}/transaction{id}/updateTransaction:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Transaction
+      summary: Update a transaction
+      description: Update a transaction informations
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: userId
+          description: User ID
+          required: true
+          type: integer
+        - in: path
+          name: id
+          description: Transaction ID
+          required: true
+          type: integer
+        - in: body
+          name: body
+          description: Update transaction informations
+          required: true
+          schema:
+           $ref: '#/definitions/TransactionUpdate'
+      produces:
+         - application/json
+      responses:
+        200:
+          description: Transaction Updated Successfully
+        400:
+          description: Invalid Fields
+        401:
+          description: Authorization information is missing or invalid.
+        500:
+          description: Internal Server Error
+  /transactions/{userId}/transaction{id}/delete:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - User Transaction
+      summary: Create A New Transaction
+      description: Delete user
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: userId
+          description: User ID
+          required: true
+          type: integer
+        - in: path
+          name: id
+          description: Transaction ID
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Transaction deleted successfully
+        400:
+          description: Transaction Id doesn't exist
+        401:
+          description: Authorization information is missing or invalid.
+        500:
+          description: Internal Server Error
+          
+  
+   
+          
+          
+securityDefinitions:
+ Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+      
+definitions:
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: transaction id
+      userId:
+        type: integer
+        description: user id
+      title:
+        type: string
+        description: transaction title
+      amount:
+        type: number
+        description: transaction amount 
+      currency:
+        type: number
+        description: transaction currency (dollars)
+      description:
+        type: string
+        description: transaction description
+      created_in:
+        type: string
+        description: transaction creation date
+      updated_in:
+        type: string
+        description: transaction updated date
+        
+  TransactionUpdate:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: transaction id
+      userId:
+        type: integer
+        description: user id
+      title:
+        type: string
+        description: transaction title
+      amount:
+        type: number
+        description: transaction amount 
+      description:
+        type: string
+        description: transaction description
+      updated_in:
+        type: string
+        description: transaction updated date
+      
+
