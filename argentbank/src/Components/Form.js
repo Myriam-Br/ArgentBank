@@ -6,6 +6,7 @@ import { login, pending, rememberMe, loginFailed } from "../features/AuthSlice";
 import { checkInput } from "../features/FormLogin";
 import { validateEmail, error } from "../features/CheckInput";
 import { userLogin } from "../API/ApiCalls";
+import { auth, notauth } from "../features/TokenSlice";
 
 function Form() {
     const dispatch = useDispatch()
@@ -31,23 +32,27 @@ function Form() {
 
     const {isRemembered } = useSelector((state) => state.auth)
     const {isFailed} = useSelector((state) => state.auth)
-
+    
     async function submitForm(e) { 
         e.preventDefault()
         dispatch(pending())
+     
         try {
             const token = await userLogin(email, password)
-            
-            if (rememberMe) {
+            dispatch(auth({token:token, status:202}))
+
+            if (isRemembered) {
             localStorage.setItem('token', token)
             } else {
             localStorage.removeItem('token')
             }
+            
             dispatch(login())
             dispatch(loginFailed(''))
             navigate('/profile')
 
         }catch (err) {
+            dispatch(notauth())
             dispatch(loginFailed('Check your email and password'))
         }
     }

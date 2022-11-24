@@ -12,7 +12,6 @@ function RequireAuth({children}) {
       dispatch(login())
     }
     const { isAuth } = useSelector((state) => state.auth)
-    console.log(isAuth);
     return isAuth ? children : <Navigate to='/login' />;
 
 }

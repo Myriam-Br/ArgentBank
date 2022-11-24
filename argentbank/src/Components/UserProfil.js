@@ -10,15 +10,23 @@ function UserProfil() {
   const [edit, setEdit] = useState(false);
   const [errorFirstName, setErrorFirstName] = useState(null)
   const [errorLastName, setErrorLastName] = useState(null)
-  const token = localStorage.getItem('token')
+  const {token} = useSelector(state => state.token.token)
 
+  function getToken() {
+    if(localStorage.getItem('token')) {
+      return localStorage.getItem('token')
+    }else{
+      return token
+    }
+  }
+  
   useEffect(() => {
     async function fetchData() {
-      const res =  await userProfil({}, {headers: {'Authorization': 'Bearer' + ' ' + token}})
+      const res =  await userProfil({}, {headers: {'Authorization': 'Bearer' + ' ' + getToken()}})
       return dispatch(getUserName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id, status:  res.data.status, message : res.data.message }))
     }
     fetchData()
-  },[dispatch, token])
+  },[dispatch, getToken()])
 
   //firstname and lastname to display
   const userLastName = useSelector(state => state.user.value.lastName)
@@ -65,7 +73,7 @@ function UserProfil() {
     if(!lastName) {
       lastName = userLastName
     }
-    const res = await updateProfil({firstName, lastName}, {headers: {'Authorization': 'Bearer' + ' ' + token}})
+    const res = await updateProfil({firstName, lastName}, {headers: {'Authorization': 'Bearer' + ' ' + getToken()}})
     dispatch(updateName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id,  status: res.data.status, message : res.data.message }))
     dispatch(getUserName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id, status:  res.data.status, message : res.data.message }))
     dispatch(deleteInput())
