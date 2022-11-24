@@ -31,12 +31,12 @@ paths:
           required: true
           type: integer
         - in: query
-          name: fromDate
+          name: startDate
           description: Start date for fetching transactions (dd/mm/yyyy)
           required: false
           type: string
         - in: query
-          name: toDate
+          name: endDate
           description: End date for fetching transactions (dd/mm/yyyy)
           required: false
           type: string  
