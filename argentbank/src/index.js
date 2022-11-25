@@ -6,6 +6,7 @@ import '../src/designs/css/main.css';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Home from '../src/Pages/Home';
+import SignInRedirect from './Pages/SignInRedirect';
 import SignIn from './Pages/SignIn';
 import NoPage from './Pages/NoPage';
 import RequireAuth from './Pages/PrivateRoutes';
@@ -21,8 +22,8 @@ root.render(
     <Header/>
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<SignIn />} />
-        <Route path='/profile' element={ <RequireAuth><Dashboard /></RequireAuth> }/>
+        <Route path="/login" element={<SignInRedirect> <SignIn /></SignInRedirect>} />
+        <Route path='/profile' element={<RequireAuth><Dashboard /></RequireAuth> }/>
         <Route path="*" element={<NoPage />} />
     </Routes>
     <Footer/>
