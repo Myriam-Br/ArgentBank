@@ -32,7 +32,7 @@ function Form() {
 
     const {isRemembered } = useSelector((state) => state.auth)
     const {isFailed} = useSelector((state) => state.auth)
-    
+
     async function submitForm(e) { 
         e.preventDefault()
         dispatch(pending())
@@ -67,7 +67,6 @@ function Form() {
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password"  onChange={(e) => validator(e.target.value, 'password')} />
-                <span>{error(password, 'password')}</span>
             </div>
             <div className="input-remember">
                 <input 

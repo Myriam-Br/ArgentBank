@@ -10,6 +10,7 @@ function UserProfil() {
   const [edit, setEdit] = useState(false);
   const [errorFirstName, setErrorFirstName] = useState(null)
   const [errorLastName, setErrorLastName] = useState(null)
+  
   const {token} = useSelector(state => state.token.token)
 
   function getToken() {
@@ -72,8 +73,8 @@ function UserProfil() {
     }
     if(!lastName) {
       lastName = userLastName
-    }
-    const res = await updateProfil({firstName, lastName}, {headers: {'Authorization': 'Bearer' + ' ' + getToken()}})
+    } const res = await updateProfil({firstName, lastName}, {headers: {'Authorization': 'Bearer' + ' ' + getToken()}})
+   
     dispatch(updateName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id,  status: res.data.status, message : res.data.message }))
     dispatch(getUserName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id, status:  res.data.status, message : res.data.message }))
     dispatch(deleteInput())

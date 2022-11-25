@@ -20,7 +20,7 @@ export function error(value, input) {
   } 
 }
 
-
+/*
 export function validateSyntax(value, regex,input, defaultValue){
   if(value && regex) {
     return value
@@ -28,4 +28,4 @@ export function validateSyntax(value, regex,input, defaultValue){
     return defaultValue
   }
 
-}
+}*/

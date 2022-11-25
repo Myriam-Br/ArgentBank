@@ -20,8 +20,9 @@ export const authSlice = createSlice({
         loginFailed: (state, action) => {
             state.isFailed = action.payload
         }, 
-        logout : (state, action) => {
-            state = initialState
+        logout : (state) => {
+            state.isAuth = false
+            state.isRemembered = false
         }
     }
 })
