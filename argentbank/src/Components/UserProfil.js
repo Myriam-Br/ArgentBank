@@ -23,11 +23,13 @@ function UserProfil() {
   
   useEffect(() => {
     async function fetchData() {
+      // eslint-disable-next-line
       const res =  await userProfil({}, {headers: {'Authorization': 'Bearer' + ' ' + getToken()}})
       return dispatch(getUserName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id, status:  res.data.status, message : res.data.message }))
     }
     fetchData()
-  },[dispatch, getToken()])
+  })
+  
 
   //firstname and lastname to display
   const userLastName = useSelector(state => state.user.value.lastName)
@@ -73,7 +75,9 @@ function UserProfil() {
     }
     if(!lastName) {
       lastName = userLastName
-    } const res = await updateProfil({firstName, lastName}, {headers: {'Authorization': 'Bearer' + ' ' + getToken()}})
+    } 
+    // eslint-disable-next-line
+    const res = await updateProfil({firstName, lastName}, {headers: {'Authorization': 'Bearer' + ' ' + getToken()}})
    
     dispatch(updateName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id,  status: res.data.status, message : res.data.message }))
     dispatch(getUserName({firstName:res.data.body.firstName, lastName: res.data.body.lastName, id: res.data.body.id, status:  res.data.status, message : res.data.message }))
