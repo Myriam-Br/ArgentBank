@@ -1,6 +1,4 @@
 # ArgentBank
-# ArgentBank
-
 ## Getting Started
 
 ### Prerequisites
